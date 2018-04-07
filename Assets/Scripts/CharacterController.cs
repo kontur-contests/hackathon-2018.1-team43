@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class CharacterController : MonoBehaviour {
+public class CharacterController : NetworkBehaviour {
     public float RotationSensivity;
     public float MovementSpeed;
 
@@ -13,12 +14,18 @@ public class CharacterController : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        if (!isLocalPlayer)
+        {
+            Destroy(this);
+            return;
+        }
+
         animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
     }
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
@@ -49,5 +56,10 @@ public class CharacterController : MonoBehaviour {
         rigidbody.MovePosition(transform.position + axisDirection.normalized * moveSpeed * Time.deltaTime);
 
         animator.SetFloat("Movement Speed", axisDirection.magnitude * 11);
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        Camera.main.GetComponent<CameraFollow>().Target = gameObject;
     }
 }
