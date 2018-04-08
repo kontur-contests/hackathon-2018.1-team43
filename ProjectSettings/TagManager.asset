@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fire
   - RotationCamera
+  - Dome
   layers:
   - Default
   - TransparentFX

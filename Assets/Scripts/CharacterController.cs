@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class CharacterController : NetworkBehaviour {
     public float RotationSensivity;
@@ -11,8 +12,8 @@ public class CharacterController : NetworkBehaviour {
     private Rigidbody rigidbody;
     private float moveSpeed;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         if (!isLocalPlayer)
         {
@@ -23,7 +24,19 @@ public class CharacterController : NetworkBehaviour {
         animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
     }
-	
+
+    void Update()
+    {
+        if(Input.GetKeyUp(KeyCode.Alpha1))
+            animator.SetTrigger("Start Dance 1");
+        if (Input.GetKeyUp(KeyCode.Alpha2))
+            animator.SetTrigger("Start Dance 2");
+        if (Input.GetKeyUp(KeyCode.Alpha3))
+            animator.SetTrigger("Start Dance 3");
+        if (Input.GetKeyUp(KeyCode.Space))
+            animator.SetTrigger("Stop Dance");
+    }
+   
 	// Update is called once per frame
 	void FixedUpdate ()
     {
@@ -38,23 +51,15 @@ public class CharacterController : NetworkBehaviour {
             rigidbody.rotation = Quaternion.LerpUnclamped(rigidbody.rotation, newRotation, RotationSensivity * Time.deltaTime);
         }
 
-        var moveSpeed = 0.0f;
+        moveSpeed = 0;
         var animatorState = animator.GetCurrentAnimatorStateInfo(0);
         if(animatorState.IsName("Walking"))
-        {
             moveSpeed = MovementSpeed * 0.3f;
-        }
         else if (animatorState.IsName("Running"))
-        {
             moveSpeed = MovementSpeed * 0.6f;
-        }
         else if (animatorState.IsName("Sprint"))
-        {
             moveSpeed = MovementSpeed;
-        }
-
         rigidbody.MovePosition(transform.position + axisDirection.normalized * moveSpeed * Time.deltaTime);
-
         animator.SetFloat("Movement Speed", axisDirection.magnitude * 11);
     }
 

@@ -208,6 +208,7 @@ GameObject:
   - component: {fileID: 114652562299402364}
   - component: {fileID: 114270983666009902}
   - component: {fileID: 114801975472534446}
+  - component: {fileID: 114734695551827616}
   m_Layer: 0
   m_Name: Man
   m_TagString: Player
@@ -1808,11 +1809,11 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1137989145754364}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 15
+  m_Drag: 1
+  m_AngularDrag: 0.3
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -1897,6 +1898,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RotationSensivity: 6
   MovementSpeed: 8
+--- !u!114 &114734695551827616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1137989145754364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957b8613e433ff049bef7b9e58662911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114801975472534446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1909,7 +1921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 3
-  m_SendInterval: 0.1
+  m_SendInterval: 0.04761905
   m_SyncRotationAxis: 2
   m_RotationSyncCompression: 2
   m_SyncSpin: 0
